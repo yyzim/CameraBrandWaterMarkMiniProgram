@@ -1,13 +1,14 @@
 <template>
 	<view class="container">
 		<view class="item1">
-			<image src="../../static/lena.jpg" mode="widthFix"></image>
+			<image v-bind:src="imgSrc" mode="heightFix" show-menu-by-longpress></image>
 		</view>
 		<view class="item2">
 			B
 		</view>
 		<view class="item3">
-			<button class="select" size="mini">选择图片</button>
+			<button class="select" size="mini" v-on:click="chooseImage">选择图片</button>
+			<button class="generate" size="mini" v-on:click="generate">生成图片</button>
 			<button class="save" size="mini">保存图片</button>
 		</view>
 
@@ -18,15 +19,40 @@
 	export default {
 		data() {
 			return {
-
+				imgSrc: "../../static/lena.jpg",
+				mergeImg: ""
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
+			chooseImage: function() {
+				wx.chooseImage({
+					count: 1,
+					sizeType: ['original', 'compressed'],
+					sourceType: ['album', 'camera'],
+					success: res => {
+						this.imgSrc = res.tempFilePaths[0]
+						this.tempFilePaths = res.tempFilePaths
+						wx.showToast({
+							title: "上传成功",
+							icon: "success"
+						})
+					},
+					fail: () => {
+						wx.showToast({
+							title: "上传失败",
+							icon: "none"
+						})
+					}
+				})
+			},
+			generate: function() {
 
+			}
 		}
+
 	}
 </script>
 
@@ -47,7 +73,7 @@
 		flex-grow: 8;
 		background-color: red;
 		border: 1rpx solid red;
-		
+
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -76,6 +102,6 @@
 
 	image {
 		flex-shrink: 0;
-		height: 100%;
+		height: 80%;
 	}
 </style>
