@@ -20,6 +20,7 @@
 		data() {
 			return {
 				imgSrc: "../../static/lena.jpg",
+				tempFilePaths: [],
 				mergeImg: ""
 			}
 		},
@@ -29,12 +30,13 @@
 		methods: {
 			chooseImage: function() {
 				wx.chooseImage({
-					count: 1,
+					count: 2,
 					sizeType: ['original', 'compressed'],
 					sourceType: ['album', 'camera'],
 					success: res => {
 						this.imgSrc = res.tempFilePaths[0]
 						this.tempFilePaths = res.tempFilePaths
+						console.log(this)
 						wx.showToast({
 							title: "上传成功",
 							icon: "success"
