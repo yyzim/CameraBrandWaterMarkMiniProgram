@@ -24,12 +24,9 @@
 				mergeImg: ""
 			}
 		},
-		onLoad() {
-
-		},
 		methods: {
 			chooseImage: function() {
-				wx.chooseImage({
+				uni.chooseImage({
 					count: 2,
 					sizeType: ['original', 'compressed'],
 					sourceType: ['album', 'camera'],
@@ -37,13 +34,13 @@
 						this.imgSrc = res.tempFilePaths[0]
 						this.tempFilePaths = res.tempFilePaths
 						console.log(this)
-						wx.showToast({
+						uni.showToast({
 							title: "上传成功",
 							icon: "success"
 						})
 					},
 					fail: () => {
-						wx.showToast({
+						uni.showToast({
 							title: "上传失败",
 							icon: "none"
 						})
